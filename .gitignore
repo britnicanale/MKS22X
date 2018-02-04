@@ -1,0 +1,11 @@
+#ignore .java~
+*.java~
+
+#ignore # files
+\#*.java\#
+
+# ignore .class
+*.class
+
+
+
