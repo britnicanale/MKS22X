@@ -3,6 +3,9 @@ public class Recursion{
     }
 
     public int fact(int n){
+	if(n < 0){
+	    throw new IllegalArgumentException();
+	}
 	if(n == 0){
 	    return 1;
 	}
@@ -10,6 +13,9 @@ public class Recursion{
     }
 
     public int fib(int n){
+	if(n < 0){
+	    throw new IllegalArgumentException();
+	}
 	return fibHelp(0, n, 0, 1);
     }
 
@@ -21,6 +27,9 @@ public class Recursion{
     }
 
     public double sqrt(double n){
+	if(n < 0){
+	    throw new IllegalArgumentException();
+	}
 	return sqrtHelp(n, n/2);
     }
 
@@ -33,7 +42,7 @@ public class Recursion{
 
     public static void main(String[] args){
 	Recursion r = new Recursion();
-	/*System.out.println(r.fact(1));
+	System.out.println(r.fact(1));
 	System.out.println(r.fact(0));
 	System.out.println(r.fact(2));
 	System.out.println(r.fact(4));
@@ -45,9 +54,9 @@ public class Recursion{
 	System.out.println(r.fib(2));
 	System.out.println(r.fib(3));
 	System.out.println(r.fib(4));
-	System.out.println(r.fib(5));*/
+	System.out.println(r.fib(5));
 	System.out.println(r.sqrt(100));
-	System.out.println(r.sqrt(10000));
+	System.out.println(r.sqrt(-10000));
 	System.out.println(r.sqrt(2));
 
     }
