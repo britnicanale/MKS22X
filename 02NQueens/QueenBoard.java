@@ -51,8 +51,7 @@ public class QueenBoard{
                 if(board[i][j] == -1){
 		    str += "Q ";
 		}else{
-		    //str+= "_ ";
-		    str += board[i][j] + " ";
+		    str+= "_ ";
 		}
             }
 	    str += "\n";
@@ -76,15 +75,22 @@ public class QueenBoard{
 	    return solveHelp(col - 1, 0, n, false);
 	}
 	if(!forward){
-	    if(removeQueen(row, col)){
-		return solveHelp(col, row + 1, n - 1, true);
-	    }
-	    return solveHelp(col, row+1, n, false);
-	}
-	if(forward && addQueen(row, col)){
-	    return solveHelp(col + 1, 0, n + 1, true);
-	}
-	return solveHelp(col, row + 1, n, true);
+            while(!removeQueen(row, col)){
+                row++;
+                if(row == board.length){
+                    return solveHelp(col - 1, 0, n, false);
+                }
+            }
+            return solveHelp(col, row + 1, n - 1, true);
+        }
+	while(!addQueen(row, col)){
+            row++;
+            if(row == board.length){
+                return solveHelp(col - 1, 0, n, false);
+            }
+        }
+        return solveHelp(col + 1, 0, n + 1, true);
+
     }
 
     public int countSolutions(){
@@ -94,37 +100,42 @@ public class QueenBoard{
 	if(col== 0 && row == board.length){
             return numSol;
         }
-        if(col == board.length){
-            return countHelp(col - 1, 0, n, false, numSol);
-        }
-        if(n == board.length){
-	    numSol++;
-            return countHelp(col - 1, 0, n, false, numSol);
+        if(n == board.length && col == board.length){
+            return countHelp(col - 1, 0, n, false, numSol + 1);
 
+        }
+	if(col == board.length){
+            return countHelp(col - 1, 0, n, false, numSol);
         }
         if(row == board.length){
             return countHelp(col - 1, 0, n, false, numSol);
         }
         if(!forward){
-            if(removeQueen(row, col)){
-                return countHelp(col, row + 1, n - 1, true, numSol);
+            while(!removeQueen(row, col)){
+		row++;
+		if(row == board.length){
+		    return countHelp(col - 1, 0, n, false, numSol);
+		}
             }
-            return countHelp(col, row+1, n, false, numSol);
+	    return countHelp(col, row + 1, n - 1, true, numSol);
+	}
+        while(!addQueen(row, col)){
+	    row++;
+	    if(row == board.length){
+		return countHelp(col - 1, 0, n, false, numSol);
+	    }
         }
-        if(forward && addQueen(row, col)){
-            return countHelp(col + 1, 0, n + 1, true, numSol);
-        }
-        return countHelp(col, row + 1, n, true, numSol);
-}
+        return countHelp(col + 1, 0, n + 1, true, numSol);
+    }
 
     public static void main(String[] args){
 	QueenBoard q = new QueenBoard(8);
-	//System.out.println(q.countSolutions());
+	System.out.println(q.countSolutions());
 	q.solve();
 	System.out.println(q);
-	QueenBoard r = new QueenBoard(12);
-        r.solve();
-	//System.out.println(r.countSolutions());
+	QueenBoard r = new QueenBoard(8);
+	System.out.println(r.countSolutions());
+	//r.solve();
         System.out.println(r);
 	QueenBoard w = new QueenBoard(3);
 	System.out.println(w.countSolutions());
@@ -132,7 +143,7 @@ public class QueenBoard{
         System.out.println(w);
 
 	QueenBoard a = new QueenBoard(5);
-	//System.out.println(a.countSolutions());
+	System.out.println(a.countSolutions());
 	a.solve();
         System.out.println(a);
     }
