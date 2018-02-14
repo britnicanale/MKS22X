@@ -8,7 +8,7 @@ public class QueenBoard{
 	    }
 	}
     }
-    public boolean addQueen(int r, int c){
+    private boolean addQueen(int r, int c){
 	if(board[r][c] != 0){
 	    return false;
 	}
@@ -25,7 +25,7 @@ public class QueenBoard{
 	return true;
     }
     
-    public boolean removeQueen(int r, int c){
+    private boolean removeQueen(int r, int c){
 	if(board[r][c] != -1){
             return false;
         }
@@ -59,73 +59,56 @@ public class QueenBoard{
 	return str;
     }
     public boolean solve(){
-	return solveHelp(0, 0, 0, true);
-}
-    private boolean solveHelp(int col, int row, int n, boolean forward){
-	if(col== 0 && row == board.length){
-	    return false;
+	for (int i = 0; i < board.length; i++) {
+	    for (int j =0; j < board[i].length;j++) {
+		if (board[i][j] != 0) {
+		    throw new IllegalStateException();
+		}
+	    }
 	}
-	if(col == board.length){
-	    return solveHelp(col - 1, 0, n, false);
-	}	
-	if(n == board.length){
+	return solveHelp(0);
+    }
+    private boolean solveHelp(int col){
+	if( col == board.length){
 	    return true;
 	}
-	if(row == board.length){
-	    return solveHelp(col - 1, 0, n, false);
-	}
-	if(!forward){
-            while(!removeQueen(row, col)){
-                row++;
-                if(row == board.length){
-                    return solveHelp(col - 1, 0, n, false);
-                }
-            }
-            return solveHelp(col, row + 1, n - 1, true);
-        }
-	while(!addQueen(row, col)){
-            row++;
-            if(row == board.length){
-                return solveHelp(col - 1, 0, n, false);
-            }
-        }
-        return solveHelp(col + 1, 0, n + 1, true);
+	for(int r = 0; r < board.length; r++){
+	    if(addQueen(r, col)){
 
+		if(solveHelp(col+1)){
+
+		    return true;
+		}
+		removeQueen(r, col);
+	    }
+	}
+
+	return false;
     }
 
     public int countSolutions(){
-	return countHelp(0, 0, 0, true, 0);
-    }
-    private int countHelp(int col, int row, int n, boolean forward, int numSol){
-	if(col== 0 && row == board.length){
-            return numSol;
-        }
-        if(n == board.length && col == board.length){
-            return countHelp(col - 1, 0, n, false, numSol + 1);
-
-        }
-	if(col == board.length){
-            return countHelp(col - 1, 0, n, false, numSol);
-        }
-        if(row == board.length){
-            return countHelp(col - 1, 0, n, false, numSol);
-        }
-        if(!forward){
-            while(!removeQueen(row, col)){
-		row++;
-		if(row == board.length){
-		    return countHelp(col - 1, 0, n, false, numSol);
-		}
+	for (int i = 0; i < board.length; i++) {
+            for (int j =0; j < board[i].length;j++) {
+                if (board[i][j] != 0) {
+                    throw new IllegalStateException();
+                }
             }
-	    return countHelp(col, row + 1, n - 1, true, numSol);
-	}
-        while(!addQueen(row, col)){
-	    row++;
-	    if(row == board.length){
-		return countHelp(col - 1, 0, n, false, numSol);
-	    }
         }
-        return countHelp(col + 1, 0, n + 1, true, numSol);
+	return countHelp(0);
+    }
+    private int countHelp(int col){
+	int numSols = 0;
+	if( col == board.length){
+            return 1;
+        }
+        for(int r = 0; r < board.length; r++){
+            if(addQueen(r, col)){
+		numSols+= countHelp(col + 1);
+                removeQueen(r, col);
+            }
+        }
+        return numSols;
+
     }
 
     public static void main(String[] args){
@@ -133,16 +116,15 @@ public class QueenBoard{
 	System.out.println(q.countSolutions());
 	q.solve();
 	System.out.println(q);
-	QueenBoard r = new QueenBoard(8);
+	QueenBoard r = new QueenBoard(15);
 	System.out.println(r.countSolutions());
-	//r.solve();
+	r.solve();
         System.out.println(r);
 	QueenBoard w = new QueenBoard(3);
 	System.out.println(w.countSolutions());
 	w.solve();
         System.out.println(w);
-
-	QueenBoard a = new QueenBoard(5);
+	QueenBoard a = new QueenBoard(25);
 	System.out.println(a.countSolutions());
 	a.solve();
         System.out.println(a);
