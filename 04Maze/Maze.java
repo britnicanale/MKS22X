@@ -5,17 +5,26 @@ public class Maze{
     private char[][]maze;
     private boolean animate;
     
-    public Maze(String filename){
-	try{
-            File f = new File(fileName);
-            Scanner in = new Scanner(f);
-            for(int j = 0; in.hasNext(); j++){
-                String line = in.next();
-		for(int i = 0; i < line.length(); i++){
-		    maze[j][i] == line.charAt(i);
+    public Maze(String filename) throws FileNotFoundException{
+	int numE = 0;
+	int numS = 0;
+	File f = new File(fileName);
+	Scanner in = new Scanner(f);
+	for(int j = 0; in.hasNext(); j++){
+	    String line = in.next();
+	    for(int i = 0; i < line.length(); i++){
+		if(line.charAt(i) == 'S'){
+		    numS ++;
 		}
+		if(line.charAt(i) == 'E'){
+		    numE ++;
+		}
+		maze[j][i] == line.charAt(i);
 	    }
-	}catch
+	}
+	if(numS != 1 || numE != 1){
+	    throw new IllegalStateException();
+	}
 
     }
     
@@ -50,5 +59,7 @@ public class Maze{
 
         return -1;
     }
-
+    public static void main(String[] args){
+	Maze m = new Maze(data1.dat);
+    }
 }
