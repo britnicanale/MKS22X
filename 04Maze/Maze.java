@@ -78,18 +78,18 @@ public class Maze{
 	    return -1;
 	}
 	maze[row][col] = '@';
-	numSteps++;
         if(animate){
             clearTerminal();
             System.out.println(this);
+	    System.out.println(numSteps);
             wait(200);
         }
-	if((solve(row, col + 1, numSteps) == -1 && solve(row + 1, col, numSteps) == -1) && (solve(row, col - 1, numSteps) == -1 && solve(row - 1, col, numSteps) == -1)){
+	if((solve(row, col + 1, numSteps + 1) == -1 && solve(row + 1, col, numSteps + 1) == -1) && (solve(row, col - 1, numSteps + 1) == -1 && solve(row - 1, col, numSteps + 1) == -1)){
 	    maze[row][col] = '.';
-	    numSteps--;
+	    //numSteps--;
 	    return -1;
 	}
-	return 0;
+	return numSteps;
     }
 
     public String toString(){
@@ -105,9 +105,9 @@ public class Maze{
 
     public static void main(String[] args){
 	try{
-	    Maze m = new Maze("data5.dat");
-	    m.setAnimate(true);
-	    m.solve();
+	    Maze m = new Maze("data3.dat");
+	    //m.setAnimate(true);
+	    System.out.println(m.solve());
 	    System.out.println(m);
 	}catch(FileNotFoundException e){
 	    System.out.println("WHAT");
