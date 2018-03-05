@@ -84,12 +84,27 @@ public class Maze{
 	    System.out.println(numSteps);
             wait(200);
         }
-	if((solve(row, col + 1, numSteps + 1) == -1 && solve(row + 1, col, numSteps + 1) == -1) && (solve(row, col - 1, numSteps + 1) == -1 && solve(row - 1, col, numSteps + 1) == -1)){
+	int solveRight = solve(row, col + 1, numSteps + 1);
+	int solveUp = solve(row + 1, col, numSteps + 1);
+	int solveLeft = solve(row, col - 1, numSteps + 1);
+	int solveDown = solve(row - 1, col, numSteps + 1);
+	if((solveRight  == -1 && solveUp == -1) && (solveLeft == -1 && solveDown == -1)){
 	    maze[row][col] = '.';
-	    //numSteps--;
 	    return -1;
 	}
-	return numSteps;
+	int ret = 0;
+	if(solveRight != -1){
+	    ret = solveRight;
+	}
+	if(solveUp != -1){
+            ret = solveUp;
+	}
+	if(solveLeft != -1){
+            ret = solveLeft;
+	}  if(solveDown != -1){
+            ret = solveDown;
+	}
+	return ret;
     }
 
     public String toString(){
@@ -105,7 +120,7 @@ public class Maze{
 
     public static void main(String[] args){
 	try{
-	    Maze m = new Maze("data3.dat");
+	    Maze m = new Maze("data2.dat");
 	    //m.setAnimate(true);
 	    System.out.println(m.solve());
 	    System.out.println(m);
