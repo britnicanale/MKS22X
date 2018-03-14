@@ -47,7 +47,7 @@ public class USACO{
                          }
                      }
                  }
-		 System.out.println(toString(lake));
+		 //System.out.println(toString(lake));
 		 numInstructions--;
 		 if(numInstructions > 0){
 		     in.nextLine();
@@ -135,7 +135,7 @@ public class USACO{
                                 if(i + 1 < map.length){
                                     newNum += moves2[i + 1][j];
 				}
-                                if(j + 1 < map.length){
+                                if(j + 1 < map[0].length){
                                     newNum += moves2[i][j + 1];
                                 }
 				if(i - 1 >= 0){
@@ -200,6 +200,19 @@ public class USACO{
 	}*/
     public static void main(String[] args){
 	System.out.println(silver("ctravel.in"));
+	System.out.println(silver("ctravel2.in"));
+	System.out.println(silver("ctravel3.in"));
+	System.out.println(silver("ctravel4.in"));
+	System.out.println(silver("ctravel5.in"));
+	System.out.println(silver("ctravel6.in"));
+	System.out.println(silver("ctravel7.in"));
+	System.out.println(silver("ctravel8.in"));
+	System.out.println(silver("ctravel9.in"));
+	System.out.println(silver("ctravel10.in"));
+	System.out.println(bronze("makelake.in"));
+	System.out.println(bronze("makelake2.in"));
+	System.out.println(bronze("makelake3.in"));
+	System.out.println(bronze("makelake8.in"));
     }
 
 }
