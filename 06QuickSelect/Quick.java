@@ -54,6 +54,38 @@ public class Quick{
 	return large;
     }
 
+    public static int[] part(int[] data, int start, int end){
+	if(end-start == 0){
+	    return end;
+	}
+	Random randgen = new Random();
+        int pI = start + randgen.nextInt(end - start);
+        int large = end;
+        int small = start + 1;
+	int i = small + 1;
+        int mv = data[pI];
+	data[pI] = data[small];
+        data[small] = mv;
+	while(large > i){
+	    if(data[i] == data[i-1]){
+		i++;
+	    }else if(data[i] > data[i-1]){
+		mv = data[i];
+		data[i] = data[large];
+		data[large] = mv;
+		large--;
+	    }else{
+		mv = data[i];
+                data[i] = data[small];
+                data[small] = mv;
+		i++;
+		small++;
+	    }
+	}
+	int[] a = new int[]{small, large};
+	return a;
+    }
+
     public static String toString(int[] a){
         String ret = "";
         for(int i = 0; i < a.length; i++){
@@ -65,8 +97,11 @@ public class Quick{
     public static void main(String[] args){
 	//Quick q = new Quick();
 	int[] a = new int[]{2, -4,  4, 5, 32, 2, 8, 10, -3, 4, -23, 67, 98, 0};
-	quickSort(a);
-	System.out.println(toString(a));
+	int[] b = new int[]{2, -4};
+        int[] c = new int[]{2, -4,  4, 5, 32, 2, 8, 10, -3, 4, -23, 67, 98, 0};
+        int[] d = new int[]{2};
+	quickSort(d);
+	System.out.println(toString(d));
 	//System.out.println(quickSelect(a, 0));
     }
 }
