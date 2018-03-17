@@ -27,6 +27,21 @@ public class Quick{
 	    quickH(data, part + 1, end);
 	}
     }
+    public static void quickSortNew(int[] data){
+	quickH(data, 0, data - 1);
+    }
+    public static void quickHNew(int[] data, int start, int end){
+	int[] part = part(data, start, end);
+	if(start - part[0] != 0){
+	    quickHNew(data, start, part[0] - 1);
+	}
+	if(end - part[1] != 0){
+	    quickHNew(data, part[1] + 1, end);
+	}
+    }
+
+    public static int[] part
+    
     public static int partition(int[] data, int start, int end){
 	if(end-start == 0){
 	    return end;
@@ -35,16 +50,14 @@ public class Quick{
 	int pI = start + randgen.nextInt(end - start);
 	int large = end;
 	int small = start + 1;
+	int i = small + 1;
 	int mv = data[pI];
-	data[pI] = data[start];
-	data[start] = mv;
-	while(large >= small){
-	    if(data[small] > data[start]){
-		mv = data[small];
-		data[small] = data[large];
-		data[large] = mv;
-		large --;
-	    }else{
+	data[pI] = data[small];
+	data[small] = mv;
+	while(large >= i    ){
+	    if(data[i    ] > data[i-1  ]){
+		i++;
+	    }else if(data[i]> data[i-1]
 		small++;
 	    }
 	}
