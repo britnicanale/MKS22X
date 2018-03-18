@@ -67,7 +67,7 @@ public class Quick{
 
     /*
       Old Methods using regular partition method
-
+    
     public static int quickSelectOld(int[] data, int k){
         int start = 0;
         int end = data.length-1;
@@ -123,14 +123,27 @@ public class Quick{
     }
 
 
-    */    
+    */
     public static void main(String[] args){
 	int[] a = new int[]{2, -4,  4, 5, 32, 2, 8, 10, -3, 4, -23, 67, 98, 0};
+	int[] e = new int[]{2, -4,  4, 5, 32, 2, 8, 10, -3, 4, -23, 67, 98, 0};
 	int[] b = new int[]{2, -4};
         int[] c = new int[]{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
         int[] d = new int[]{2};
 	System.out.println(quickSelect(a, 0));
-	System.out.println(toString(a));
+	//System.out.println(toString(a));
+
+	long start,end;
+	start = System.nanoTime();
+	quickSort(c);
+	end = System.nanoTime();
+	System.out.println(end-start);
+	System.out.println(a);
+	start = System.nanoTime();
+        quickSortOld(c);
+        end = System.nanoTime();
+        System.out.println(end-start);
+	System.out.println(e);
 	//System.out.println(quickSelect(a, 0));
     }
 }
