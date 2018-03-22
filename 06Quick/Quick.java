@@ -123,7 +123,7 @@ public class Quick{
     }
 
 
-    */
+    
     public static void main(String[] args){
 	int[] a = new int[]{2, -4,  4, 5, 32, 2, 8, 10, -3, 4, -23, 67, 98, 0};
 	int[] e = new int[]{2, -4,  4, 5, 32, 2, 8, 10, -3, 4, -23, 67, 98, 0};
@@ -145,5 +145,5 @@ public class Quick{
         System.out.println(end-start);
 	System.out.println(e);
 	//System.out.println(quickSelect(a, 0));
-    }
+	}*/
 }

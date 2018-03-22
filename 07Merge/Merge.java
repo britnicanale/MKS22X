@@ -39,18 +39,15 @@ public class Merge{
 	    data[i] = temp[i - start];
 	}
     }
-    /*    public static String toString(int[] ary){
-	String ret = "[";
-	for(int i = 0; i < ary.length; i ++){
-	    ret+= ary[i] + " ";
-	}
-	return ret + "]";
-    }
-    */
+   
     public static void main(String[] args){
 	int[] a = new int[]{-3, 5, 12, -3, 4, 6, 1, 124, 98, 34, -34, 90};
-	int[] b = new int[]{-3, 5, 12, 34, 34, -29, 1, 12, 98, 343, 344};
+	int[] b = new int[]{-3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3};
+	long start,end;
+	start = System.currentTimeMillis();
 	mergeSort(a);
+	end = System.currentTimeMillis();
+	System.out.println(end-start);
 	//System.out.println(toString(a));
     }
 }
