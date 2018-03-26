@@ -13,7 +13,7 @@ public class Merge{
 	}
     }
 
-    public static void mergeSort(int[] data){
+    public static void mergesort(int[] data){
 	mergeHelp(data, 0, data.length-1);
     }
     public static void mergeHelp(int[] data, int start, int end){

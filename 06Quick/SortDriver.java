@@ -63,7 +63,7 @@ public class SortDriver{
 	Arrays.sort(result);
     
 	long startTime = System.currentTimeMillis();
-	Quick.quickSort(start);
+	Quick.quicksort(start);
 	/*
 	 * Test your sort here!
 	 */

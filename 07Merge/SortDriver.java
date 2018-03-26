@@ -63,7 +63,7 @@ public class SortDriver{
 	Arrays.sort(result);
     
 	long startTime = System.currentTimeMillis();
-	Merge.mergeSort(start);
+	Merge.mergesort(start);
 	long elapsedTime = System.currentTimeMillis() - startTime;
 
 

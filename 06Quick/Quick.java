@@ -1,7 +1,5 @@
-
 import java.util.Random;
 public class Quick{
-
     public static void swap(int[] ary, int a, int b){
         int c =ary[a]; 
 	ary[a] = ary[b];        
@@ -14,8 +12,6 @@ public class Quick{
             }
         }
     }
-
-
     //New methods using dutch flag partition 
     public static int quickSelect(int[] data, int k){
         int start = 0;
@@ -33,7 +29,7 @@ public class Quick{
         return data[part[0]];
     }
 
-    public static void quickSort(int[] data){
+    public static void quicksort(int[] data){
 	quickH(data, 0, data.length - 1);
     }
 
