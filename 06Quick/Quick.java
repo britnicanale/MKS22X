@@ -2,6 +2,20 @@
 import java.util.Random;
 public class Quick{
 
+    public static void swap(int[] ary, int a, int b){
+        int c =ary[a]; 
+	ary[a] = ary[b];        
+	ary[b] = c;
+    }
+    public static void insertionSort(int[] ary){
+        for(int i = 1; i < ary.length; i++){
+            for(int j = i - 1; j >= 0 && ary[j] > ary[j+1]; j--){
+                swap(ary, j, j + 1);
+            }
+        }
+    }
+
+
     //New methods using dutch flag partition 
     public static int quickSelect(int[] data, int k){
         int start = 0;
@@ -24,13 +38,24 @@ public class Quick{
     }
 
     private static void quickH(int[] data, int start, int end){
-	int[] part = partition(data, start, end);
-	if(start - part[0] < 0){
-	    quickH(data, start, part[0] - 1);
-	}
-	if(end - part[1] > 0){
-	    quickH(data, part[1] + 1, end);
-	}
+	if(end - start > 5){
+	    int[] part = partition(data, start, end);
+	    if(start - part[0] < 0){
+		quickH(data, start, part[0] - 1);
+	    }
+	    if(end - part[1] > 0){
+		quickH(data, part[1] + 1, end);
+	    }
+	}else{
+	    int[] ary = new int[end - start + 1];
+            for(int i = start; i <=end; i++){
+                ary[i - start] = data[i];
+            }
+	    insertionSort(ary);
+	    for(int i = start; i <= end; i++){
+                data[i] = ary[i - start];
+            }
+        }
     }
     public static int[] partition(int[] data, int start, int end){
 	if(end-start == 0){

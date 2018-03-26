@@ -65,10 +65,13 @@ public class SortDriver{
 	long startTime = System.currentTimeMillis();
 	Merge.mergeSort(start);
 	long elapsedTime = System.currentTimeMillis() - startTime;
+
+
 	if(Arrays.equals(start,result)){
 	    System.out.println("PASS Case "+args[1]+". "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
 	}else{
-	    System.out.println("FAIL ! Case "+args[1]+" ERROR! "+name(type)+" array, size:"+size+"  ERROR!");
+	    System.out.println("FAIL ! Case "+args[1]+" ERROR! "+name(type)+" array, size:"+size+"  ERROR!" + Arrays.toString(start));
 	}
+
     }
 }
