@@ -192,7 +192,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
         }
 	return m;
     }
-
+    /*
     public int max(){
 	if(size == 0){
 	    return -1;
@@ -214,10 +214,38 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 		max = n;
 		m = curr;
 	    }
-	    }*/
+	    }
 	return m;
     }
 
+
+*/
+    public int max(){
+        if(size == 0){
+            return -1;
+        }
+        int curr = 0; 
+	int m = 0;
+        T max = start.getValue(); 
+        for(T n : this){                                                                 
+	  curr++;                                                                                                 
+            if(max.compareTo(n) < 0){                                                             
+                max = n;                                                                              
+                m = curr;                                                                       
+            }                                                                                     
+            }
+        return m;
+    }
+
+
+
+    public void extend(MyLinkedListImproved<T> other){
+	this.end.setNext(other.start);
+	other.start.setPrev(this.end);
+	this.end = other.end;
+	size += other.size();
+	other.clear();
+    }
 
     private class Node{
 	private T data;
@@ -258,8 +286,6 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
 
     private class LinkedListIterator implements Iterator<T>{
-	//private MyLinkedListImproved<T> data;
-	//private int current;
 
 	private Node current;
 
@@ -268,7 +294,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	}
 
 	public boolean hasNext(){
-	    return current.getNext() == null;
+	    return current.getNext() != null;
 	}
 
 	public void remove(){
@@ -288,13 +314,13 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     
 
     public static void main(String[] args){
-	MyLinkedListImproved<String> m = new MyLinkedListImproved<>();
+	/*MyLinkedListImproved<String> m = new MyLinkedListImproved<>();
 	m.add("EGGS");
 	m.add("ja;jfkdlajfk");
 	m.add("ZZZZZZZ");
 	m.add("zzzzz");
 	System.out.println(m.max());
-	System.out.println(m);
+	System.out.println(m);*/
 	MyLinkedListImproved<Integer> q = new MyLinkedListImproved<>();
         q.add(Integer.valueOf(9));
 	q.add(Integer.valueOf(-1249));
@@ -302,9 +328,23 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	q.add(Integer.valueOf(-9));
 	q.add(Integer.valueOf(839));
 	q.add(Integer.valueOf(99));
-	System.out.println(q.max());
-	System.out.println(q.min());
-        System.out.println(q);
-	//System.out.println(q.get(0) instanceof Integer);
+	//System.out.println(q.max());
+	//System.out.println(q.min());
+        //System.out.println(q);
+	MyLinkedListImproved<Integer> r = new MyLinkedListImproved<>();
+        r.add(Integer.valueOf(9));
+        r.add(Integer.valueOf(-1249));
+        r.add(Integer.valueOf(129));
+	r.add(Integer.valueOf(-9));
+        r.add(Integer.valueOf(839));
+        r.add(Integer.valueOf(99));
+	//q.extend(r);
+	System.out.println(q);
+	//System.out.println(r);
+	//System.out.println(q.size());
+	for(Integer n : q){
+	    System.out.println(n);
+	}
+
     }
 }
