@@ -192,7 +192,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
         }
 	return m;
     }
-    /*
+    
     public int max(){
 	if(size == 0){
 	    return -1;
@@ -208,43 +208,32 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    }
 	    n = n.getNext();
 	}
-	/*for(T n : this){
-	    curr++;
-	    if(max.compareTo(n) < 0){
-		max = n;
-		m = curr;
-	    }
-	    }
 	return m;
     }
 
 
-*/
-    public int max(){
-        if(size == 0){
-            return -1;
-        }
-        int curr = 0; 
-	int m = 0;
-        T max = start.getValue(); 
-        for(T n : this){                                                                 
-	  curr++;                                                                                                 
-            if(max.compareTo(n) < 0){                                                             
-                max = n;                                                                              
-                m = curr;                                                                       
-            }                                                                                     
-            }
-        return m;
+    private Node getEnd(){
+	return end;
+    }
+    private Node getStart(){
+	return start;
     }
 
-
-
     public void extend(MyLinkedListImproved<T> other){
-	this.end.setNext(other.start);
-	other.start.setPrev(this.end);
-	this.end = other.end;
-	size += other.size();
-	other.clear();
+	if(other.getStart() != null){
+	    if(start == null){
+		start = other.getStart();
+		end = other.getEnd();
+		size = other.size();
+		other.clear();
+	    }else{
+		end.setNext(other.getStart());
+		other.getStart().setPrev(end);
+		end = other.getEnd();
+		size += other.size();
+		other.clear();
+	    }
+	}
     }
 
     private class Node{
@@ -338,13 +327,23 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	r.add(Integer.valueOf(-9));
         r.add(Integer.valueOf(839));
         r.add(Integer.valueOf(99));
-	//q.extend(r);
-	System.out.println(q);
+	MyLinkedListImproved<Integer> w = new MyLinkedListImproved<>();
+	w.extend(r);
+	//System.out.println(w);
 	//System.out.println(r);
 	//System.out.println(q.size());
-	for(Integer n : q){
+	/*	for(Integer n : q){
 	    System.out.println(n);
-	}
+	    }*/
 
+
+	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
+        Random ran = new Random();
+
+        for(int i = 0; i < 30; i++){
+            m.add(ran.nextInt(100));
+        }
+        System.out.println(m);
+	System.out.println(m.max());
     }
 }
