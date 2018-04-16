@@ -75,7 +75,6 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
         if(index == size - 1){
             end = end.getPrev();
         }
-        //System.out.println(this);                                             
         return ret;
 
     }
@@ -118,7 +117,6 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
             return "[]";
         }
         String ret = "[";
-        //Node current = start;                                                 
         for(int i = 0; i < size - 1; i++){
             ret += get(i) + ", ";
         }
@@ -283,7 +281,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	}
 
 	public boolean hasNext(){
-	    return current.getNext() != null;
+	    return current != null;
 	}
 
 	public void remove(){
@@ -291,12 +289,13 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	}
 
 	public T next(){
-	    if (hasNext()){
-		current = current.getNext();
-	    }else{
+	    T ret;
+	    if (!hasNext()){
 		System.exit(0);
 	    }
-	    return current.getPrev().getValue();
+	    ret = current.getValue();
+	    current = current.getNext();
+	    return ret;
 	}
     }
 
