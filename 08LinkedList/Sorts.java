@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Arrays;
 
-public class Sort{
+public class Sorts{
     public static void radixsort(MyLinkedListImproved<Integer> data){
 	if(data.size() != 0){
 	    @SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] digits = new MyLinkedListImproved[10];
