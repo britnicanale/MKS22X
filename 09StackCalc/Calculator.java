@@ -1,4 +1,4 @@
-public class Postfix{
+public class Calculator{
     public static double eval(String exp){
 	Stack s = new Stack();
 	while(exp.length() > 0){
