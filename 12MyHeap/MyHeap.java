@@ -23,6 +23,16 @@ public class MyHeap<T extends Comparable<T>>{
         isMax = max;
     }
 
+    public void heapify(T[] d){
+	data = d;
+	size = data.length;
+	for(int i = size - 1; i >= 0; i--){
+	    if(2*i + 1 < size){
+		pushdown(i);
+	    }
+	}
+    }
+
     public void add(T s){
 	if(size == data.length){
 	    resize();
