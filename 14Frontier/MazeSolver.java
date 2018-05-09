@@ -19,33 +19,28 @@ public class MazeSolver{
 	    frontier.add(f[i]);
 	}
 	while(frontier.hasNext()){
-	    System.out.println(maze.toStringColor(5));
+	    System.out.println(maze.toStringColor(50));
 	    Location next = frontier.next();
 	    maze.set(next.getX(), next.getY(), '.');
 	    Location[] neighbors = maze.getNeighbors(next);
-	    /*	    if(neighbors[0] == null){
-		maze.set(next.getX(), next.getY(), '.');
-		}*/
 	    for(int i = 0; i < neighbors.length && neighbors[i] != null; i ++){
 		if(neighbors[i].getX() == maze.getEnd().getX() && neighbors[i].getY() == maze.getEnd().getY()){
 		    Location curr = neighbors[i].getPrevious();
-		    while(curr.getPrevious().getX() != maze.getStart().getX() && curr.getPrevious().getY() != maze.getStart().getY()){
-			System.out.println(maze.toStringColor(10));
+		    while(curr.getX() != maze.getStart().getX() || curr.getY() != maze.getStart().getY()){
 			maze.set(curr.getX(), curr.getY(), '@');
+			System.out.println(maze.toStringColor(10));
 			curr = curr.getPrevious();
 		    }
 		    return true;
 		}
 		frontier.add(neighbors[i]);
 		maze.set(neighbors[i].getX(), neighbors[i].getY(), '?');
-	    }
-	    
-	    //maze.set(next.getX(), next.getY(), '.');
+	    }	    
 	}
 	return false;
     }
     public static void main(String[] args){
 	MazeSolver i = new MazeSolver("input.txt");
-	i.solve(1);
+	i.solve(0);
     }
 }

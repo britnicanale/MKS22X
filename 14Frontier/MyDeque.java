@@ -30,13 +30,11 @@ public class MyDeque<E>{
     }
 
     public void addFirst(E val){
-	System.out.println(size());
-	System.out.println(start + ", " + end); 
 	if(val == null){
 	    throw new NullPointerException();
 	}
 	if(size() == 0){
-	    start = start - 1;
+	    start = (start - 1 + data.length) % data.length;
 	    data[start] = val;
 	}
 	else{
@@ -44,8 +42,8 @@ public class MyDeque<E>{
 		resize();
 	    }
 	    if(data[(start - 1 + data.length) % data.length] == null){
-		start = start -1;
-		data[(start + data.length) % data.length] = val;
+		start = (start -1 + data.length) % data.length;
+		data[start] = val;
 	    }
 	}
 	size++;
@@ -56,52 +54,51 @@ public class MyDeque<E>{
             throw new NullPointerException();
 	}
 	if(size() == 0){
-	    end = end + 1;
-            data[end] =val;
-	}
-        else{
+	    end = (end + 1) % data.length;
+            data[end] = val;
+	}else{
 	    if(size() == data.length){
 		resize();
-	    } 
-	    if(data[(end + 1 + data.length) % data.length] == null){
-		end = end + 1;
-		data[(end + data.length) % data.length] = val;
+	    }
+	    if(data[(end + 1) % data.length ] == null){
+		end = (end + 1) % data.length;
+		data[end] = val;
 	    }
 	}
 	size++;
     }
 
     public E removeFirst(){
-	if(data[(start + data.length) % data.length] == null){
+	if(data[start] == null){
 	    throw new NoSuchElementException();
 	}
-	E ret = data[(start + data.length) % data.length];
-	data[(start + data.length) % data.length] = null;
-	start = start + 1;
+	E ret = data[start];
+	data[start] = null;
+	start = (start + 1 + data.length) % data.length;
 	size--;
 	return ret;
     }
     public E removeLast(){
-        if(data[(end + data.length) % data.length] == null){
+        if(data[end] == null){
             throw new NoSuchElementException();
         }
-        E ret = data[(end + data.length) % data.length];
-        data[(end + data.length) % data.length] = null;
-        end = end - 1;
+        E ret = data[end];
+        data[end] = null;
+        end = (end - 1 + data.length) % data.length;
 	size--;
         return ret;
     }
     public E getFirst(){
-	if(data[(start + data.length) % data.length] == null){
+	if(data[start] == null){
             throw new NoSuchElementException();
         }
-	return data[(start + data.length) % data.length];
+	return data[start];
     }
     public E getLast(){
-	if(data[(end + data.length) % data.length] == null){
+	if(data[end] == null){
             throw new NoSuchElementException();
 	}
-        return data[(end + data.length) % data.length];
+        return data[end];
     }
 
     @SuppressWarnings("unchecked")

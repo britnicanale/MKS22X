@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class FrontierStack implements Frontier{
     private MyDeque<Location> locations;
 
@@ -11,6 +13,10 @@ public class FrontierStack implements Frontier{
         locations.addFirst(next);
     }
     public boolean hasNext(){
-        return locations.getFirst() != null;
+	try{
+	    return locations.getFirst() != null;
+	}catch(NoSuchElementException e){
+	    return false;
+	}
     }
 }
