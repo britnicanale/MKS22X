@@ -12,20 +12,20 @@ public class Maze{
        Location[] neighbors = new Location[4];
        int i = 0;
        if(L.getY() + 1 < maze[0].length && maze[L.getX()][L.getY() + 1] == ' ' || L.getY() + 1 < maze[0].length && maze[L.getX()][L.getY() + 1] == 'E'){
-	   neighbors[i] = new Location(L.getX(), L.getY() + 1, L);
+	   neighbors[i] = new Location(L.getX(), L.getY() + 1, L, Math.abs(getEnd().getX() - L.getX()) + Math.abs(getEnd().getY() - (L.getY() + 1)));
 	   i++;
        }
-	   if(L.getY() - 1 >= 0 && maze[L.getX()][L.getY() - 1] == ' ' || L.getY() - 1 >= 0 && maze[L.getX()][L.getY() - 1] == 'E'){
-           neighbors[i] = new Location(L.getX(), L.getY() - 1, L);
+       if(L.getY() - 1 >= 0 && maze[L.getX()][L.getY() - 1] == ' ' || L.getY() - 1 >= 0 && maze[L.getX()][L.getY() - 1] == 'E'){
+	   neighbors[i] = new Location(L.getX(), L.getY() - 1, L, Math.abs(getEnd().getX() - L.getX()) + Math.abs(getEnd().getY() - (L.getY() - 1)));
 	   i++;
        }
 
-	   if(L.getX() + 1 < maze.length && maze[L.getX() + 1][L.getY()] == ' ' || L.getX() + 1 < maze.length && maze[L.getX() + 1][L.getY()] == 'E'){
-           neighbors[i] = new Location(L.getX() + 1, L.getY(), L);
+       if(L.getX() + 1 < maze.length && maze[L.getX() + 1][L.getY()] == ' ' || L.getX() + 1 < maze.length && maze[L.getX() + 1][L.getY()] == 'E'){
+           neighbors[i] = new Location(L.getX() + 1, L.getY(), L, Math.abs(getEnd().getX() - (L.getX() + 1)) + Math.abs(getEnd().getY() - L.getY()));
 	   i++;
        }
-	   if(L.getX() - 1 >= 0  && maze[L.getX() - 1][L.getY()] == ' ' || L.getX() - 1 >= 0  && maze[L.getX() - 1][L.getY()] == 'E'){
-           neighbors[i] = new Location(L.getX() - 1, L.getY(), L);
+       if(L.getX() - 1 >= 0  && maze[L.getX() - 1][L.getY()] == ' ' || L.getX() - 1 >= 0  && maze[L.getX() - 1][L.getY()] == 'E'){
+           neighbors[i] = new Location(L.getX() - 1, L.getY(), L, Math.abs(getEnd().getX() - (L.getX() - 1)) + Math.abs(getEnd().getY() - L.getY()));
        }
        return neighbors;
     }
@@ -41,6 +41,7 @@ public class Maze{
     private static String go(int x,int y){
 	return ("\033[" + x + ";" + y + "H");
     }
+
     private static String color(int foreground,int background){
 	return ("\033[0;" + foreground + ";" + background + "m");
     }
@@ -48,6 +49,7 @@ public class Maze{
     public void clearTerminal(){
 	System.out.println(CLEAR_SCREEN+"\033[1;1H");
     }
+
     public Maze(String filename){
 	ArrayList<char[]> lines = new ArrayList<char[]>();
 	int startr=-1, startc=-1;
@@ -101,8 +103,8 @@ public class Maze{
     The start/end Locations may need more information later when we add
     other kinds of frontiers!
 	*/
-	end = new Location(endr,endc,null);
-	start = new Location(startr,startc,null);
+	end = new Location(endr,endc,null, 0);
+	start = new Location(startr,startc,null, Math.abs(endr-startr) + Math.abs(endc-startc));
     }
 
     public String toStringColor(){
@@ -139,9 +141,11 @@ public class Maze{
     public char get(int row,int col){
 	return maze[row][col];
     }
+
     public void set(int row,int col, char n){
 	maze[row][col] = n;
     }
+
     public static String colorize(String s){
 	String ans = "";
 	Scanner in = new Scanner(s);

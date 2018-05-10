@@ -1,25 +1,41 @@
 public class MazeSolver{
     private Maze maze;
     private Frontier frontier;
+    private boolean animate;
 
     public MazeSolver(String mazeText){
 	maze = new Maze(mazeText);
+	animate = false;
     }
+
+    public MazeSolver(String mazeText, boolean ani){
+	maze = new Maze(mazeText);
+        animate= ani;
+    }
+
+    public void switchAnimate(boolean ani){
+	animate = ani;
+    }
+
     public boolean solve(){
 	return solve(0);
     }
     public boolean solve(int mode){
 	if(mode == 0){
 	    frontier = new FrontierQueue();
-	}else{
+	}else if(mode == 1){
 	    frontier = new FrontierStack();
+	}else{
+	    frontier = new FrontierPriorityQueue();
 	}
 	Location[] f = maze.getNeighbors(maze.getStart());
 	for(int i = 0; i < f.length && f[i] != null; i ++){
 	    frontier.add(f[i]);
 	}
 	while(frontier.hasNext()){
-	    System.out.println(maze.toStringColor(50));
+	    if(animate){
+		System.out.println(maze.toStringColor(50));
+	    }
 	    Location next = frontier.next();
 	    maze.set(next.getX(), next.getY(), '.');
 	    Location[] neighbors = maze.getNeighbors(next);
@@ -28,7 +44,9 @@ public class MazeSolver{
 		    Location curr = neighbors[i].getPrevious();
 		    while(curr.getX() != maze.getStart().getX() || curr.getY() != maze.getStart().getY()){
 			maze.set(curr.getX(), curr.getY(), '@');
-			System.out.println(maze.toStringColor(10));
+			if(animate){
+			    System.out.println(maze.toStringColor(10));
+			}
 			curr = curr.getPrevious();
 		    }
 		    return true;
@@ -40,7 +58,9 @@ public class MazeSolver{
 	return false;
     }
     public static void main(String[] args){
-	MazeSolver i = new MazeSolver("input.txt");
-	i.solve(0);
+	MazeSolver i = new MazeSolver("data3.dat");
+
+	i.switchAnimate(true);
+	i.solve(2);
     }
 }
