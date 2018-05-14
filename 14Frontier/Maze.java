@@ -7,27 +7,32 @@ public class Maze{
     private static final String SHOW_CURSOR =  "\033[?25h";
     Location start,end;
     private char[][]maze;
+    private boolean isAStar;
 
    public Location[] getNeighbors(Location L){
        Location[] neighbors = new Location[4];
        int i = 0;
        if(L.getY() + 1 < maze[0].length && maze[L.getX()][L.getY() + 1] == ' ' || L.getY() + 1 < maze[0].length && maze[L.getX()][L.getY() + 1] == 'E'){
-	   neighbors[i] = new Location(L.getX(), L.getY() + 1, L, Math.abs(getEnd().getX() - L.getX()) + Math.abs(getEnd().getY() - (L.getY() + 1)));
+	   neighbors[i] = new Location(L.getX(), L.getY() + 1, L, Math.abs(getEnd().getX() - L.getX()) + Math.abs(getEnd().getY() - (L.getY() + 1)), L.distanceTraveled() + 1, isAStar);
 	   i++;
        }
        if(L.getY() - 1 >= 0 && maze[L.getX()][L.getY() - 1] == ' ' || L.getY() - 1 >= 0 && maze[L.getX()][L.getY() - 1] == 'E'){
-	   neighbors[i] = new Location(L.getX(), L.getY() - 1, L, Math.abs(getEnd().getX() - L.getX()) + Math.abs(getEnd().getY() - (L.getY() - 1)));
+	   neighbors[i] = new Location(L.getX(), L.getY() - 1, L, Math.abs(getEnd().getX() - L.getX()) + Math.abs(getEnd().getY() - (L.getY() - 1)), L.distanceTraveled() + 1, isAStar);
 	   i++;
        }
 
        if(L.getX() + 1 < maze.length && maze[L.getX() + 1][L.getY()] == ' ' || L.getX() + 1 < maze.length && maze[L.getX() + 1][L.getY()] == 'E'){
-           neighbors[i] = new Location(L.getX() + 1, L.getY(), L, Math.abs(getEnd().getX() - (L.getX() + 1)) + Math.abs(getEnd().getY() - L.getY()));
+           neighbors[i] = new Location(L.getX() + 1, L.getY(), L, Math.abs(getEnd().getX() - (L.getX() + 1)) + Math.abs(getEnd().getY() - L.getY()), L.distanceTraveled() + 1, isAStar);
 	   i++;
        }
        if(L.getX() - 1 >= 0  && maze[L.getX() - 1][L.getY()] == ' ' || L.getX() - 1 >= 0  && maze[L.getX() - 1][L.getY()] == 'E'){
-           neighbors[i] = new Location(L.getX() - 1, L.getY(), L, Math.abs(getEnd().getX() - (L.getX() - 1)) + Math.abs(getEnd().getY() - L.getY()));
+           neighbors[i] = new Location(L.getX() - 1, L.getY(), L, Math.abs(getEnd().getX() - (L.getX() - 1)) + Math.abs(getEnd().getY() - L.getY()), L.distanceTraveled() + 1, isAStar);
        }
        return neighbors;
+    }
+
+    public void setAStar(boolean aStar){
+	isAStar = aStar;
     }
 
     public Location getStart(){
@@ -103,8 +108,8 @@ public class Maze{
     The start/end Locations may need more information later when we add
     other kinds of frontiers!
 	*/
-	end = new Location(endr,endc,null, 0);
-	start = new Location(startr,startc,null, Math.abs(endr-startr) + Math.abs(endc-startc));
+	end = new Location(endr,endc,null, 0, Math.abs(endr-startr) + Math.abs(endc-startc), isAStar);
+	start = new Location(startr,startc,null, Math.abs(endr-startr) + Math.abs(endc-startc), 0, isAStar);
     }
 
     public String toStringColor(){

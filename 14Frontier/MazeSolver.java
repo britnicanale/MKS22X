@@ -25,8 +25,12 @@ public class MazeSolver{
 	    frontier = new FrontierQueue();
 	}else if(mode == 1){
 	    frontier = new FrontierStack();
-	}else{
+	}else if (mode == 2){
 	    frontier = new FrontierPriorityQueue();
+	}else{
+	    //frontier = new FrontierAStar();
+	    frontier = new FrontierPriorityQueue();
+	    maze.setAStar(true);
 	}
 	Location[] f = maze.getNeighbors(maze.getStart());
 	for(int i = 0; i < f.length && f[i] != null; i ++){
@@ -58,7 +62,7 @@ public class MazeSolver{
 	return false;
     }
     public static void main(String[] args){
-	MazeSolver i = new MazeSolver("data3.dat");
+	MazeSolver i = new MazeSolver("input.txt");
 
 	i.switchAnimate(true);
 	i.solve(2);
