@@ -62,9 +62,9 @@ public class MazeSolver{
 	return false;
     }
     public static void main(String[] args){
-	MazeSolver i = new MazeSolver("input.txt");
+	MazeSolver i = new MazeSolver("astar.txt");
 
 	i.switchAnimate(true);
-	i.solve(2);
+	i.solve(3);
     }
 }
